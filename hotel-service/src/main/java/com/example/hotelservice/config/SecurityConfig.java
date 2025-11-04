@@ -1,26 +1,43 @@
 package com.example.hotelservice.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
+
 @Configuration
-@EnableMethodSecurity
 public class SecurityConfig {
+
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
-        http.csrf().disable()
+        http
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/actuator/**").permitAll()
+                        .requestMatchers("/api/hotels", "/api/rooms", "/api/rooms/recommend").permitAll()
+                        .requestMatchers("/internal/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .oauth2ResourceServer()
-                .jwt();
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                );
 
         return http.build();
     }
+
+//    @Bean
+//    public JwtDecoder jwtDecoder() {
+//        byte[] keyBytes = Base64.getDecoder().decode(jwtSecret);
+//        SecretKeySpec key = new SecretKeySpec(keyBytes, "HmacSHA256");
+//        return NimbusJwtDecoder.withSecretKey(key).build();
+//    }
 }

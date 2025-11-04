@@ -1,7 +1,7 @@
 package com.example.bookingservice.security;
 
 import com.example.bookingservice.service.CustomUserDetailsService;
-import com.example.bookingservice.service.JwtService; // ✅ ИСПРАВЛЕНО
+import com.example.bookingservice.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService; // ✅ теперь корректно
+    private final JwtService jwtService;
     private final CustomUserDetailsService userDetailsService;
 
     @Override

@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8083
 
 spring:
   application:
@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:h2:mem:hoteldb
     driverClassName: org.h2.Driver
-    username: test
+    username: sa
     password:
 
   jpa:
@@ -27,7 +27,7 @@ management:
       exposure:
         include: "*"
 jwt:
-  secret: "secret-key-www123"
+  secret: "mysupersecurejwtkeywith32chars1234567890mysupersecurejwtkeywith32chars1234567890"
 
 internal:
-  key: "internal-key-123"
+  key: "super-internal-key-777"

@@ -22,11 +22,15 @@ feign:
         retryer: spring-retry
 
 jwt:
-  secret: "secret-key-www123"
+  secret: "my-super-secure-jwt-key-with-32-chars-1234567890"
 
 internal:
-  key: "internal-key-123"
+  key: "super-internal-key-777"
 
 hotel:
   service:
-    url: http://localhost:8082
+    url: http://localhost:8083
+logging:
+  level:
+    org.springframework.security: DEBUG
+    com.example.bookingservice: DEBUG
