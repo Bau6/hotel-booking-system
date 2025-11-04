@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      routes:
+        - id: booking-service
+          uri: lb://booking-service
+          predicates:
+            - Path=/api/auth/**,/api/bookings/**,/api/user/**
+          filters:
+            - StripPrefix=1
+            - RemoveRequestHeader=Cookie
+            - PreserveHostHeader
