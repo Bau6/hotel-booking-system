@@ -1,0 +1,32 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: booking-service
+
+  retry:
+    enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+feign:
+  client:
+    config:
+      hotel-service:
+        connectTimeout: 3000
+        readTimeout: 3000
+        retryer: spring-retry
+
+jwt:
+  secret: "secret-key-www123"
+
+internal:
+  key: "internal-key-123"
+
+hotel:
+  service:
+    url: http://localhost:8082
